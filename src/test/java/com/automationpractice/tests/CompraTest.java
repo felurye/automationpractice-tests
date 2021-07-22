@@ -24,6 +24,11 @@ class CompraTest {
 			.visitar()
 			.irParaPaginaDeLogin()
 			.realizarLogin("email@email.email", "tester123");
+		
+		indexPage
+			.visitar()
+			.adicionarItemAoCarrinho(0, true)
+			.adicionarItemAoCarrinho(1, false);
 	
 	}
 
