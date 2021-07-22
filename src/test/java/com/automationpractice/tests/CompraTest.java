@@ -1,6 +1,7 @@
 package com.automationpractice.tests;
 
 import static com.automationpractice.utils.Utils.capturarScreenshot;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -18,17 +19,29 @@ class CompraTest {
 	IndexPage indexPage = new IndexPage();
 
 	@Test
-	@DisplayName("Validar Carrinho de Compra")
+	@DisplayName("Validar Valor Total no Carrinho de Compra")
 	void validarCarrinhoCompraTest() {
+		
+		// Pré-condições
 		indexPage
 			.visitar()
 			.irParaPaginaDeLogin()
 			.realizarLogin("email@email.email", "tester123");
 		
+		// Ações
+		Double valorTotalSomado =
 		indexPage
 			.visitar()
 			.adicionarItemAoCarrinho(0, true)
-			.adicionarItemAoCarrinho(1, false);
+			.adicionarItemAoCarrinho(1, false)
+			.somarValoresNoCarrinho();
+		
+		// Validações
+		Double valorTotalEmTela =
+		indexPage
+			.buscarValorTotal();
+		
+		assertEquals(valorTotalSomado, valorTotalEmTela);
 	
 	}
 
